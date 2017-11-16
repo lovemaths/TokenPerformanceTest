@@ -74,26 +74,44 @@ namespace TestApp
 
         static JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
-        static void Prepare()
-        {
-            var token = handler.CreateEncodedJwt(sym_256_descriptor);
 
-            handler.ValidateToken(token, sym_256_tvp, out SecurityToken validatedToken);
-        }
-
-        static double RunTests(int numberOfIterations)
+        static double CreateAndValidateToken(int numberOfIterations, SecurityTokenDescriptor descriptor, TokenValidationParameters tvp)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Prepare();
+            for(int i = 0; i < numberOfIterations; i++)
+            {
+                var token = handler.CreateEncodedJwt(descriptor);
+                handler.ValidateToken(token, tvp, out SecurityToken validatedToken);
+            }
             sw.Stop();
             var totalTime = sw.Elapsed.TotalMilliseconds;
-            return sw.Elapsed.TotalMilliseconds;
+            //Console.WriteLine($"total time: {totalTime}");
+            return totalTime;
+        }
+
+        static void RunTest(SecurityTokenDescriptor descriptor, TokenValidationParameters tvp)
+        {
+            double total = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                total += CreateAndValidateToken(30, descriptor, tvp);
+            }
+            Console.WriteLine($"Total time is {total}");
         }
 
         static void Main(string[] args)
-        {
-            RunTests(10);
-            Console.WriteLine("Hello World!");
+        {           
+            Console.WriteLine("x509 test");
+            RunTest(x509_2048_descriptor, x509_2048_tvp);
+            Console.WriteLine("jwk rsa");
+            RunTest(jwk_rsa_descriptor, jwk_rsa_tvp);
+            Console.WriteLine("rsa 2048");
+            RunTest(rsa_2048_descriptor, rsa_2048_tvp);
+            Console.WriteLine("sym 256");
+            RunTest(sym_256_descriptor, sym_256_tvp);
+            Console.WriteLine($"===================================");
+            Console.WriteLine("Press any key.");
+            Console.ReadKey();
         }
     }
 }

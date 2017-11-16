@@ -1,0 +1,25 @@
+10 iterations, create and validate 30 tokens each iteration
+
+Old
+
+x509 test
+Total time is 818.8221
+jwk rsa
+Total time is 1292.7407
+rsa 2048
+Total time is 1405.1322
+sym 256
+Total time is 31.7717
+
+
+New
+
+x509 test
+Total time is 1645.0221
+jwk rsa
+Total time is 1328.5835
+rsa 2048
+Total time is 1356.4331
+sym 256
+Total time is 33.3824
+

@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.0-preview2-41113220915" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.0-preview2-41113220915" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.0-preview2-41116212956" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.0-preview2-41116212956" />
   </ItemGroup>
 
 </Project>
